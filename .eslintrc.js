@@ -19,6 +19,10 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
   },
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: ['./tsconfig.json'],
+    tsconfigRootDir: __dirname,
+  },
   plugins: ['@typescript-eslint', 'import'],
   rules: {
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
