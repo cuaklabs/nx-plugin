@@ -2,7 +2,9 @@
   "name": "@cuaklabs/nx-plugin",
   "version": "0.1.0",
   "description": "Cuaklabs nx plugin",
-  "scripts": {},
+  "scripts": {
+    "commit": "commit"
+  },
   "keywords": [
     "nx",
     "plugin"
@@ -10,6 +12,9 @@
   "author": "Cuak McCuackl <cuak.mccuakl@cuaklabs.com>",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "17.1.2",
+    "@commitlint/config-conventional": "17.1.0",
+    "@commitlint/prompt-cli": "17.1.2",
     "husky": "^8.0.1"
   },
   "prepare": "husky install"
