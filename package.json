@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "Cuaklabs nx plugin",
   "scripts": {
-    "commit": "commit"
+    "commit": "commit",
+    "prepare": "husky install"
   },
   "keywords": [
     "nx",
