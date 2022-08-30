@@ -2,9 +2,15 @@
   "name": "@cuaklabs/nx-plugin",
   "version": "0.1.0",
   "description": "Cuaklabs nx plugin",
-  "scripts": {
-  },
-  "keywords": ["nx", "plugin"],
+  "scripts": {},
+  "keywords": [
+    "nx",
+    "plugin"
+  ],
   "author": "Cuak McCuackl <cuak.mccuakl@cuaklabs.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^8.0.1"
+  },
+  "prepare": "husky install"
 }
