@@ -1,6 +1,9 @@
 # npm installed packages
 node_modules/
 
+# Typescript compiled files
+lib/
+
 ### npm lock files (consider https://github.com/yarnpkg/yarn/issues/838#issuecomment-253362537 as reference)
 package-lock.json
 pnpm-lock.yaml
