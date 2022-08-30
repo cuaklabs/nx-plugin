@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "Cuaklabs nx plugin",
   "scripts": {
+    "build": "tsc",
+    "build:clean": "rimraf lib",
     "commit": "commit",
+    "prebuild": "pnpm run build:clean",
     "prepare": "husky install"
   },
   "keywords": [
@@ -24,6 +27,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "husky": "8.0.1",
     "prettier": "2.7.1",
+    "rimraf": "^3.0.2",
     "typescript": "4.8.2"
   }
 }
