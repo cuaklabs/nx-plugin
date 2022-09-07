@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "run-commands-interactive": {
+      "implementation": "./src/executors/runCommandsInteractive/implementation",
+      "schema": "./src/executors/runCommandsInteractive/schema.json",
+      "description": "Run commands interactive"
+    }
+  }
+}
