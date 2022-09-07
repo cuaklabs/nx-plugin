@@ -1,0 +1,194 @@
+name: build
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+on:
+  pull_request:
+    types:
+      - closed
+      - opened
+      - reopened
+      - synchronize
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: "!(github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false)"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: pnpm-store-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            pnpm-store-
+        
+      - name: Install dependencies
+        run: pnpm --recursive install
+
+      - name: Compile source files
+        run: pnpm run build
+
+      - name: Lint source files
+        run: pnpm run lint
+
+      - name: Get current git commit hash
+        id: get-git-commit-hash
+        run: |
+          echo "::set-output name=gitCommitHash::$(git rev-parse HEAD)"
+
+      - uses: actions/cache@v3
+        id: ts-build-cache
+        with:
+          path: |
+            ./lib
+          key: ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
+          restore-keys: |
+            ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
+
+  test-unit:
+    name: Unit tests
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: pnpm-store-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            pnpm-store-
+        
+      - name: Install dependencies
+        run: pnpm --recursive install
+
+      - name: Get current git commit hash
+        id: get-git-commit-hash
+        run: |
+          echo "::set-output name=gitCommitHash::$(git rev-parse HEAD)"
+
+      - uses: actions/cache@v3
+        id: ts-build-cache
+        with:
+          path: |
+            ./lib
+          key: ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
+          restore-keys: |
+            ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
+
+      - name: Build on cache miss
+        run: pnpm run build
+        if: ${{ !steps.ts-build-cache.outputs.cache-hit }}
+
+      - name: Launch unit tests
+        run: pnpm run test:js:ci:coverage --selectProjects Unit
+
+  test-integration:
+    name: Integration tests
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: pnpm-store-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            pnpm-store-
+        
+      - name: Install dependencies
+        run: pnpm --recursive install
+
+      - name: Get current git commit hash
+        id: get-git-commit-hash
+        run: |
+          echo "::set-output name=gitCommitHash::$(git rev-parse HEAD)"
+
+      - uses: actions/cache@v3
+        id: ts-build-cache
+        with:
+          path: |
+            ./lib
+          key: ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
+          restore-keys: |
+            ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
+
+      - name: Build on cache miss
+        run: pnpm run build:all
+        if: ${{ !steps.ts-build-cache.outputs.cache-hit }}
+
+      - name: Launch integration tests
+        run: pnpm run test:js:ci:coverage --selectProjects Integration
+
+  test-coverage:
+    name: Test with coverage
+    needs:
+      - test-integration
+      - test-unit
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "Done!"'
