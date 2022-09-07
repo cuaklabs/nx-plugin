@@ -63,7 +63,7 @@ jobs:
         id: ts-build-cache
         with:
           path: |
-            ./packages
+            ./lib
           key: ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
           restore-keys: |
             ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
@@ -114,13 +114,13 @@ jobs:
         id: ts-build-cache
         with:
           path: |
-            ./packages
+            ./lib
           key: ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
           restore-keys: |
             ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
 
       - name: Build on cache miss
-        run: pnpm run build:all
+        run: pnpm run build
         if: ${{ !steps.ts-build-cache.outputs.cache-hit }}
 
       - name: Launch unit tests
@@ -172,7 +172,7 @@ jobs:
         id: ts-build-cache
         with:
           path: |
-            ./packages
+            ./lib
           key: ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
           restore-keys: |
             ts-build-${{ steps.get-git-commit-hash.outputs.gitCommitHash }}
