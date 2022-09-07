@@ -1,5 +1,5 @@
 import { ChildProcess, exec, ExecException } from 'node:child_process';
-import { Readable, Stream, Writable } from 'node:stream';
+import { Readable, Writable } from 'node:stream';
 
 import { beforeAll, describe, expect, it } from '@jest/globals';
 
