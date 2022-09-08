@@ -1,8 +1,20 @@
+/.github
+/.husky
+/.vscode
+/config
+
 **/*.spec.js
 **/*.spec.js.map
 **/*.ts
 !lib/**/*.d.ts
 
+.eslintignore
 .eslintrc.js
+.prettierignore
+.prettierrc
+
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+
 pnpm-lock.yaml
 tsconfig.json
