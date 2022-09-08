@@ -1,4 +1,6 @@
-import { beforeAll, describe, expect, it, jest } from '@jest/globals';
+import path from 'node:path';
+
+import { afterAll, beforeAll, describe, expect, it, jest } from '@jest/globals';
 
 import * as jestMock from 'jest-mock';
 
@@ -55,6 +57,199 @@ describe(runCommandsInteractiveExecutor.name, () => {
             runCommandsInteractiveOptions,
             executorContextFixture,
           );
+        });
+
+        afterAll(() => {
+          jest.clearAllMocks();
+        });
+
+        it('should call RunCommandNodeJsAdapter()', () => {
+          expect(RunCommandNodeJsAdapter).toHaveBeenCalledTimes(1);
+          expect(RunCommandNodeJsAdapter).toHaveBeenCalledWith();
+        });
+
+        it('should call runCommandNodeJsAdapter.run()', () => {
+          const expectedRunCommandOptions: RunCommandOptions = {
+            command: commandFixture,
+            cwd: executorContextFixture.root,
+          };
+
+          expect(runCommandNodeJsAdapterMock.run).toHaveBeenCalledTimes(1);
+          expect(runCommandNodeJsAdapterMock.run).toHaveBeenCalledWith(
+            expectedRunCommandOptions,
+          );
+        });
+
+        it('should return a sucess response', () => {
+          expect(result).toStrictEqual({ success: true });
+        });
+      });
+    });
+
+    describe('having a RunCommandsInteractiveOptions with a single command and cwd with an absolute path', () => {
+      let commandFixture: string;
+      let runCommandsInteractiveOptions: RunCommandsInteractiveOptions;
+
+      beforeAll(() => {
+        commandFixture = 'command fixture';
+
+        runCommandsInteractiveOptions = {
+          commands: [commandFixture],
+          cwd: '/cwd',
+        };
+      });
+
+      describe('when called', () => {
+        let runCommandNodeJsAdapterMock: RunCommandNodeJsAdapter;
+        let result: unknown;
+
+        beforeAll(async () => {
+          runCommandNodeJsAdapterMock = {
+            run: jest.fn<
+              (options: RunCommandOptions) => Promise<RunCommandResult>
+            >(),
+          } as Partial<RunCommandNodeJsAdapter> as RunCommandNodeJsAdapter;
+          (
+            RunCommandNodeJsAdapter as jestMock.Mock<
+              () => RunCommandNodeJsAdapter
+            >
+          ).mockReturnValueOnce(runCommandNodeJsAdapterMock);
+
+          result = await runCommandsInteractiveExecutor(
+            runCommandsInteractiveOptions,
+            executorContextFixture,
+          );
+        });
+
+        afterAll(() => {
+          jest.clearAllMocks();
+        });
+
+        it('should call RunCommandNodeJsAdapter()', () => {
+          expect(RunCommandNodeJsAdapter).toHaveBeenCalledTimes(1);
+          expect(RunCommandNodeJsAdapter).toHaveBeenCalledWith();
+        });
+
+        it('should call runCommandNodeJsAdapter.run()', () => {
+          const expectedRunCommandOptions: RunCommandOptions = {
+            command: commandFixture,
+            cwd: runCommandsInteractiveOptions.cwd as string,
+          };
+
+          expect(runCommandNodeJsAdapterMock.run).toHaveBeenCalledTimes(1);
+          expect(runCommandNodeJsAdapterMock.run).toHaveBeenCalledWith(
+            expectedRunCommandOptions,
+          );
+        });
+
+        it('should return a sucess response', () => {
+          expect(result).toStrictEqual({ success: true });
+        });
+      });
+    });
+
+    describe('having a RunCommandsInteractiveOptions with a single command and cwd with a relative path', () => {
+      let commandFixture: string;
+      let runCommandsInteractiveOptions: RunCommandsInteractiveOptions;
+
+      beforeAll(() => {
+        commandFixture = 'command fixture';
+
+        runCommandsInteractiveOptions = {
+          commands: [commandFixture],
+          cwd: 'cwd',
+        };
+      });
+
+      describe('when called', () => {
+        let runCommandNodeJsAdapterMock: RunCommandNodeJsAdapter;
+        let result: unknown;
+
+        beforeAll(async () => {
+          runCommandNodeJsAdapterMock = {
+            run: jest.fn<
+              (options: RunCommandOptions) => Promise<RunCommandResult>
+            >(),
+          } as Partial<RunCommandNodeJsAdapter> as RunCommandNodeJsAdapter;
+          (
+            RunCommandNodeJsAdapter as jestMock.Mock<
+              () => RunCommandNodeJsAdapter
+            >
+          ).mockReturnValueOnce(runCommandNodeJsAdapterMock);
+
+          result = await runCommandsInteractiveExecutor(
+            runCommandsInteractiveOptions,
+            executorContextFixture,
+          );
+        });
+
+        afterAll(() => {
+          jest.clearAllMocks();
+        });
+
+        it('should call RunCommandNodeJsAdapter()', () => {
+          expect(RunCommandNodeJsAdapter).toHaveBeenCalledTimes(1);
+          expect(RunCommandNodeJsAdapter).toHaveBeenCalledWith();
+        });
+
+        it('should call runCommandNodeJsAdapter.run()', () => {
+          const expectedRunCommandOptions: RunCommandOptions = {
+            command: commandFixture,
+            cwd: path.join(
+              executorContextFixture.root,
+              runCommandsInteractiveOptions.cwd as string,
+            ),
+          };
+
+          expect(runCommandNodeJsAdapterMock.run).toHaveBeenCalledTimes(1);
+          expect(runCommandNodeJsAdapterMock.run).toHaveBeenCalledWith(
+            expectedRunCommandOptions,
+          );
+        });
+
+        it('should return a sucess response', () => {
+          expect(result).toStrictEqual({ success: true });
+        });
+      });
+    });
+
+    describe('having a RunCommandsInteractiveOptions with a single command and parallel true', () => {
+      let commandFixture: string;
+      let runCommandsInteractiveOptions: RunCommandsInteractiveOptions;
+
+      beforeAll(() => {
+        commandFixture = 'command fixture';
+
+        runCommandsInteractiveOptions = {
+          commands: [commandFixture],
+          parallel: true,
+        };
+      });
+
+      describe('when called', () => {
+        let runCommandNodeJsAdapterMock: RunCommandNodeJsAdapter;
+        let result: unknown;
+
+        beforeAll(async () => {
+          runCommandNodeJsAdapterMock = {
+            run: jest.fn<
+              (options: RunCommandOptions) => Promise<RunCommandResult>
+            >(),
+          } as Partial<RunCommandNodeJsAdapter> as RunCommandNodeJsAdapter;
+          (
+            RunCommandNodeJsAdapter as jestMock.Mock<
+              () => RunCommandNodeJsAdapter
+            >
+          ).mockReturnValueOnce(runCommandNodeJsAdapterMock);
+
+          result = await runCommandsInteractiveExecutor(
+            runCommandsInteractiveOptions,
+            executorContextFixture,
+          );
+        });
+
+        afterAll(() => {
+          jest.clearAllMocks();
         });
 
         it('should call RunCommandNodeJsAdapter()', () => {
