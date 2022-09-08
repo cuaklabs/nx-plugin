@@ -2,6 +2,9 @@
   "name": "@cuaklabs/nx-plugin",
   "version": "0.1.0",
   "description": "Cuaklabs nx plugin",
+  "bugs": {
+    "url": "https://github.com/cuaklabs/nx-plugin/issues"
+  },
   "packageManager": "pnpm@7.11.0",
   "scripts": {
     "build:clean": "rimraf lib",
@@ -57,5 +60,12 @@
       "prettier --write",
       "eslint"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cuaklabs/nx-plugin.git"
   }
 }
