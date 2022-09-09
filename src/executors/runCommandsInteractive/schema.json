@@ -1,5 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "cli": "nx",
   "title": "Run Commands",
   "description": "Run any custom commands in interactive mode (stdin, stout and stderr are piped!).",
   "type": "object",
