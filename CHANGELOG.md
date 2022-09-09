@@ -19,6 +19,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
+## [UNRELEASED]
+
+### Changed
+- Fix package to inform nx of the current executors provided.
+
+
+
+
 ## 0.1.0 - 2022-09-09
 
 ### Added
