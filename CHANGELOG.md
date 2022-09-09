@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [UNRELEASED]
+## 0.1.2 - 2022-09-09
 
 ### Changed
 - Fix runCommandsInteractiveExecutor schema with "cli" property to mark it as an nx executor.
