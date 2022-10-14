@@ -49,8 +49,8 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@nrwl/devkit": "^14.5.10",
-    "nx": "^14.5.10"
+    "@nrwl/devkit": "^15.0.0",
+    "nx": "^15.0.0"
   },
   "executors": "./executors.json",
   "lint-staged": {
