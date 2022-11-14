@@ -5,7 +5,7 @@
   "bugs": {
     "url": "https://github.com/cuaklabs/nx-plugin/issues"
   },
-  "packageManager": "pnpm@7.15.0",
+  "packageManager": "pnpm@7.16.0",
   "scripts": {
     "build:clean": "rimraf lib",
     "build": "tsc",
@@ -31,8 +31,8 @@
     "@commitlint/prompt-cli": "17.2.0",
     "@jest/globals": "29.3.1",
     "@types/node": "18.11.9",
-    "@typescript-eslint/eslint-plugin": "5.42.1",
-    "@typescript-eslint/parser": "5.42.1",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
     "eslint": "8.27.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "27.1.5",
