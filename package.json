@@ -26,9 +26,9 @@
   "author": "Cuak McCuackl <cuak.mccuakl@cuaklabs.com>",
   "license": "See license in \"LICENSE\" file",
   "devDependencies": {
-    "@commitlint/cli": "17.4.0",
+    "@commitlint/cli": "17.4.1",
     "@commitlint/config-conventional": "17.4.0",
-    "@commitlint/prompt-cli": "17.4.0",
+    "@commitlint/prompt-cli": "17.4.1",
     "@jest/globals": "29.3.1",
     "@types/node": "18.11.18",
     "@typescript-eslint/eslint-plugin": "5.48.0",
