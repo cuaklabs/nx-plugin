@@ -5,7 +5,7 @@
   "bugs": {
     "url": "https://github.com/cuaklabs/nx-plugin/issues"
   },
-  "packageManager": "pnpm@7.29.2",
+  "packageManager": "pnpm@7.29.3",
   "scripts": {
     "build:clean": "rimraf lib",
     "build": "tsc",
