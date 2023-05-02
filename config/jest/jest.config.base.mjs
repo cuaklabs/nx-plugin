@@ -18,7 +18,6 @@ function getJestProjectConfig(
   /** @type { !import("@jest/types/build/Config").GlobalConfig } */
   const projectConfig = {
     displayName: projectName,
-    collectCoverageFrom: [],
     coveragePathIgnorePatterns: ['/node_modules/'],
     coverageThreshold: {
       global: {
