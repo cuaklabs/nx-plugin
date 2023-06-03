@@ -33,7 +33,7 @@
     "@types/node": "18.16.16",
     "@typescript-eslint/eslint-plugin": "5.59.8",
     "@typescript-eslint/parser": "5.59.8",
-    "eslint": "8.41.0",
+    "eslint": "8.42.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "27.2.1",
     "eslint-plugin-prettier": "4.2.1",
@@ -41,7 +41,7 @@
     "jest": "29.5.0",
     "jest-mock": "29.5.0",
     "lint-staged": "13.2.2",
-    "nx": "16.3.1",
+    "nx": "16.3.2",
     "prettier": "2.8.8",
     "rimraf": "5.0.1",
     "ts-jest": "29.1.0",
@@ -50,7 +50,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@nrwl/devkit": "16.3.1"
+    "@nrwl/devkit": "16.3.2"
   },
   "executors": "./executors.json",
   "lint-staged": {
